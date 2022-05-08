@@ -1,24 +1,11 @@
-open Stdlib.Effect
 open Stdlib.Effect.Deep
 
-exception%effect E: string
-
-let comp () =
-  print_string "0 ";
-  print_string (perform E);
-  print_string "3 "
+exception%effect E: unit
 
 let () =
-  try comp ()
-  with [%effect? E, k] ->
-    print_string "1 ";
-    continue k "2 ";
-    print_string "4 "
-
-let () =
-  match comp () with
+  Printexc.record_backtrace true;
+  let raiser () = raise Not_found in
+  match raiser () with
   | e -> e
   | [%effect? E, k] ->
-      print_string "1 ";
-      continue k "2 ";
-      print_string "4 "
+    continue k ()

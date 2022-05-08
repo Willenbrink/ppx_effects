@@ -1,9 +1,11 @@
 (** These functions are exported for use by the [ppx_effects] PPX. They are not
     intended to be called directly by users. *)
 
-let raise e =
-  let bt = Printexc.get_raw_backtrace () in
-  Printexc.raise_with_backtrace e bt
+(* let raise e = *)
+(*   let bt = Printexc.get_raw_backtrace () in *)
+(*   Printexc.raise_with_backtrace e bt *)
+
+let raise = Stdlib.raise
 
 open Stdlib.Effect
 open Stdlib.Effect.Deep
